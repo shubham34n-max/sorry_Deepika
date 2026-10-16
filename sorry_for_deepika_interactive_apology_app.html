@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorry for Deepika ❤️</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            script: ['Dancing Script', 'cursive'],
+          },
+          colors: {
+            rosepink: '#ff4d6d',
+            softblush: '#fff0f3',
+            warmdark: '#2b2d42',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: radial-gradient(circle at top left, #ffe5ec, #ffc2d1, #ffb3c6);
+      min-height: 100vh;
+    }
+
+    /* Floating background items */
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .heart-float {
+      position: absolute;
+      bottom: -40px;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.5;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      20% { opacity: 0.65; }
+      80% { opacity: 0.5; }
+      100% {
+        transform: translateY(-110vh) scale(1.1) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Glassmorphism styling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15), 0 6px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Smooth Slide/Fade step animation */
+    .step-content {
+      display: none;
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .step-content.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Gentle pulsing */
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .pulse-slow {
+      animation: gentlePulse 2.4s infinite ease-in-out;
+    }
+
+    /* Hug shake animation */
+    @keyframes hugWarmth {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-5deg) scale(1.06); }
+      75% { transform: rotate(5deg) scale(1.06); }
+    }
+    .hug-anim {
+      animation: hugWarmth 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4 relative min-h-screen text-slate-800">
+
+  <!-- Background Floating Ambient Elements -->
+  <div class="floating-container" id="floatingBg"></div>
+
+  <!-- Music / Sound Synthesizer Control -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="musicToggleBtn" onclick="toggleAudio()" class="glass-card px-4 py-2 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 hover:bg-white/90 shadow transition text-rose-600 active:scale-95">
+      <span id="musicIcon">🎵</span>
+      <span id="musicText">BGM: Tap to Play</span>
+    </button>
+  </div>
+
+  <!-- Main Container Card -->
+  <main class="w-full max-w-lg glass-card rounded-3xl p-6 sm:p-9 relative z-10 transition-all duration-300 my-8">
+
+    <!-- Progress Steps Tracker -->
+    <div class="w-full mb-6">
+      <div class="flex justify-between items-center text-xs font-semibold text-rose-500 mb-2 px-1">
+        <span id="stepIndicator">Step 1 of 5</span>
+        <span class="font-script text-lg text-rose-600">For My Deepika</span>
+      </div>
+      <div class="w-full bg-rose-200/50 h-2 rounded-full overflow-hidden">
+        <div id="progressBar" class="bg-gradient-to-r from-rose-400 to-rose-600 h-full w-1/5 transition-all duration-500 ease-out"></div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Introduction -->
+    <section id="step1" class="step-content active text-center">
+      <div class="relative mb-3">
+        <div class="text-7xl pulse-slow drop-shadow-sm select-none">🥺💔</div>
+        <div class="absolute -top-2 -right-2 text-2xl animate-bounce">✨</div>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 font-script mb-2 tracking-wide">
+        I am so sorry, Deepika...
+      </h1>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-6 px-2">
+        I know I hurt you, and it broke my heart to see that distance between us. You mean the world to me, and not being able to talk to you properly makes everything feel incomplete.
+      </p>
+
+      <div class="bg-rose-50/70 border border-rose-200/60 rounded-2xl p-4 mb-6 text-sm text-rose-800 italic">
+        "I never ever wanted to be the reason behind your sadness..."
+      </div>
+
+      <button onclick="goToStep(2)" class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-full shadow-lg shadow-rose-300 transition-all transform hover:-translate-y-0.5 active:scale-95">
+        Please hear me out ➜
+      </button>
+    </section>
+
+    <!-- STEP 2: Heartfelt Apology & Mistake Realization -->
+    <section id="step2" class="step-content text-center">
+      <div class="text-6xl mb-3 select-none">🥀➡️🌹</div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 font-script mb-2">
+        I own my mistake completely
+      </h2>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 px-2">
+        Deepika, bina kisi bahaane ke, I genuinely accept my fault. Sometimes emotions get clumsy or words come out wrong, but my love and respect for you have never wavered even for a second.
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 w-full my-4">
+        <div class="bg-white/80 p-3 rounded-2xl border border-rose-100 shadow-sm text-left">
+          <div class="text-xl mb-1">🥀</div>
+          <h3 class="text-xs font-bold text-rose-600 uppercase tracking-wider">What I Did</h3>
+          <p class="text-xs text-gray-600 mt-1">Careless words & misunderstandings that upset you.</p>
+        </div>
+        <div class="bg-white/80 p-3 rounded-2xl border border-rose-100 shadow-sm text-left">
+          <div class="text-xl mb-1">💖</div>
+          <h3 class="text-xs font-bold text-rose-600 uppercase tracking-wider">What You Deserve</h3>
+          <p class="text-xs text-gray-600 mt-1">Unconditional warmth, genuine respect & pure smiles.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 w-full justify-center mt-3">
+        <button onclick="goToStep(1)" class="px-5 py-2.5 text-xs text-gray-500 hover:text-gray-700 transition">
+          ← Back
+        </button>
+        <button onclick="goToStep(3)" class="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-full shadow-lg shadow-rose-300 transition-all transform hover:-translate-y-0.5 active:scale-95">
+          See my promises to you ➜
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 3: Interactive Promises -->
+    <section id="step3" class="step-content text-center">
+      <div class="text-5xl mb-2 select-none">🤞💌</div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 font-script mb-1">
+        Promises from My Heart
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-500 mb-4">
+        Tap each card to reveal my vow to you:
+      </p>
+
+      <!-- Interactive Promise Cards -->
+      <div class="space-y-2.5 w-full text-left mb-6">
+        <div onclick="togglePromise(this)" class="promise-item cursor-pointer bg-white/70 hover:bg-white border border-rose-100 rounded-2xl p-3.5 transition-all shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-gray-800 flex items-center gap-2">
+              <span>🎧</span> I Promise to Listen First
+            </span>
+            <span class="text-rose-500 text-xs font-bold toggle-hint">+</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 hidden leading-relaxed pl-6">
+            Whenever you're upset or have something to say, I will listen with all my heart instead of rushing to argue or defend.
+          </p>
+        </div>
+
+        <div onclick="togglePromise(this)" class="promise-item cursor-pointer bg-white/70 hover:bg-white border border-rose-100 rounded-2xl p-3.5 transition-all shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-gray-800 flex items-center gap-2">
+              <span>🛡️</span> Your Peace is Sacred
+            </span>
+            <span class="text-rose-500 text-xs font-bold toggle-hint">+</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 hidden leading-relaxed pl-6">
+            I never want those sparkling eyes to shed tears of sadness because of me. Your inner peace and smile come before everything else.
+          </p>
+        </div>
+
+        <div onclick="togglePromise(this)" class="promise-item cursor-pointer bg-white/70 hover:bg-white border border-rose-100 rounded-2xl p-3.5 transition-all shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-gray-800 flex items-center gap-2">
+              <span>🌸</span> Continuous Effort & Care
+            </span>
+            <span class="text-rose-500 text-xs font-bold toggle-hint">+</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 hidden leading-relaxed pl-6">
+            Apologies mean nothing without change. I promise to be more patient, gentle, and understanding every single day.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+        <button onclick="goToStep(2)" class="px-5 py-2.5 text-xs text-gray-500 hover:text-gray-700 transition">
+          ← Back
+        </button>
+        <button onclick="goToStep(4)" class="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-full shadow-lg shadow-rose-300 transition-all transform hover:-translate-y-0.5 active:scale-95">
+          The ultimate question ➜
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 4: The Playful / Sweet Decision -->
+    <section id="step4" class="step-content text-center">
+      <div class="text-6xl mb-3 pulse-slow select-none">🥺🙏</div>
+      <h2 class="text-3xl font-bold text-gray-800 font-script mb-2">
+        Deepika, will you forgive me?
+      </h2>
+      <p class="text-sm text-gray-600 mb-6 px-2">
+        Can we leave the anger behind and start fresh with that lovely smile of yours?
+      </p>
+
+      <!-- Decision buttons area -->
+      <div class="relative w-full min-h-[140px] flex flex-col items-center justify-center gap-4 py-2" id="decisionContainer">
+        <!-- YES Button -->
+        <button id="yesBtn" onclick="forgiveAction()" class="px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold rounded-full shadow-lg shadow-emerald-200 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 text-base z-20">
+          <span>Yes, I Forgive You</span>
+          <span>❤️</span>
+        </button>
+
+        <!-- NO / RUNAWAY Button -->
+        <button id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-6 py-2 bg-gray-200/90 hover:bg-rose-100 text-gray-600 font-medium rounded-full transition-all duration-200 text-xs shadow-sm z-10 select-none">
+          Still angry 😤
+        </button>
+      </div>
+
+      <p id="dodgeFeedback" class="text-xs text-rose-500 font-medium h-4 mt-2 transition-opacity duration-300 opacity-0">
+        Oops! Gussa karne ka option ab expired ho chuka hai! 😜
+      </p>
+
+      <button onclick="goToStep(3)" class="mt-4 px-5 py-2 text-xs text-gray-400 hover:text-gray-600 transition">
+        ← Back to promises
+      </button>
+    </section>
+
+    <!-- STEP 5: Final Celebration & Virtual Hug -->
+    <section id="step5" class="step-content text-center">
+      <div class="text-7xl mb-3 hug-anim select-none">🫂💖</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-rose-600 font-script mb-2">
+        Yay! Thank You, Deepika!
+      </h2>
+      <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-5">
+        You have no idea how much this means to me. Thank you for your kindness, your patience, and your golden heart.
+      </p>
+
+      <!-- Sweet Love Letter Note -->
+      <div class="bg-gradient-to-br from-rose-50 to-pink-100/70 border border-rose-200 rounded-2xl p-5 text-left mb-6 shadow-inner">
+        <h4 class="text-sm font-bold text-rose-700 font-script text-xl mb-1">My Dear Deepika,</h4>
+        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-3">
+          I promise to cherish you, take care of your feelings, and never take your presence for granted. Now give me that dazzling smile I love the most!
+        </p>
+        <div class="text-right font-script text-rose-600 text-lg font-bold">
+          Always Yours ❤️
+        </div>
+      </div>
+
+      <!-- Virtual Hug & Re-celebrate Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center w-full">
+        <button onclick="triggerSuperConfetti()" class="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-full shadow-md shadow-rose-300 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm">
+          <span>Send A Big Virtual Hug 🤗</span>
+        </button>
+        <button onclick="goToStep(1)" class="px-6 py-3 border border-rose-300 bg-white/60 hover:bg-white text-rose-600 font-medium rounded-full transition-all text-xs active:scale-95">
+          Read Again ↺
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Footer Note -->
+  <footer class="text-center text-xs text-rose-900/60 font-medium relative z-10 pb-4">
+    Crafted with deep love and sincere regret for <span class="text-rose-600 font-bold">Deepika</span> ❤️
+  </footer>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // --- Ambient Audio Synthesizer (Zero External Audio File Dependency) ---
+    let audioCtx = null;
+    let isPlaying = false;
+    let synthInterval = null;
+
+    function playSoftChime(freq, duration, delay) {
+      if (!audioCtx) return;
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+          gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.04, audioCtx.currentTime + 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          console.error("Audio error", e);
+        }
+      }, delay);
+    }
+
+    function startMelodyLoop() {
+      // Gentle romantic arpeggio chord progression (C - G - Am - F)
+      const chords = [
+        [261.63, 329.63, 392.00, 523.25], // C
+        [196.00, 246.94, 293.66, 392.00], // G
+        [220.00, 261.63, 329.63, 440.00], // Am
+        [174.61, 220.00, 261.63, 349.23], // F
+      ];
+      let chordIndex = 0;
+
+      function playNextBar() {
+        if (!isPlaying) return;
+        const currentChord = chords[chordIndex];
+        currentChord.forEach((note, idx) => {
+          playSoftChime(note, 2.0, idx * 600);
+        });
+        chordIndex = (chordIndex + 1) % chords.length;
+      }
+
+      playNextBar();
+      synthInterval = setInterval(playNextBar, 2600);
+    }
+
+    function toggleAudio() {
+      const icon = document.getElementById('musicIcon');
+      const text = document.getElementById('musicText');
+
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (!isPlaying) {
+        isPlaying = true;
+        icon.textContent = '🔊';
+        text.textContent = 'Music: On';
+        startMelodyLoop();
+      } else {
+        isPlaying = false;
+        clearInterval(synthInterval);
+        icon.textContent = '🔈';
+        text.textContent = 'Music: Paused';
+      }
+    }
+
+    // --- Floating hearts generator ---
+    const bgContainer = document.getElementById('floatingBg');
+    const emojis = ['💖', '🌸', '✨', '💕', '🌷', '🥺'];
+
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart-float';
+      heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 95 + 'vw';
+      heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+      heart.style.fontSize = (Math.random() * 16 + 18) + 'px';
+      bgContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createFloatingHeart, 600);
+    for (let i = 0; i < 8; i++) {
+      createFloatingHeart();
+    }
+
+    // --- Step Navigation ---
+    function updateProgress(step) {
+      const bar = document.getElementById('progressBar');
+      const indicator = document.getElementById('stepIndicator');
+      bar.style.width = (step / totalSteps) * 100 + '%';
+      indicator.textContent = `Step ${step} of ${totalSteps}`;
+    }
+
+    function goToStep(step) {
+      if (step < 1 || step > totalSteps) return;
+
+      const currentSec = document.getElementById(`step${currentStep}`);
+      const nextSec = document.getElementById(`step${step}`);
+
+      if (currentSec) currentSec.classList.remove('active');
+      if (nextSec) nextSec.classList.add('active');
+
+      currentStep = step;
+      updateProgress(step);
+
+      // Auto start audio on initial engagement if allowed
+      if (step === 2 && !isPlaying && !audioCtx) {
+        try {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          isPlaying = true;
+          document.getElementById('musicIcon').textContent = '🔊';
+          document.getElementById('musicText').textContent = 'Music: On';
+          startMelodyLoop();
+        } catch(e){}
+      }
+
+      // Small confetti burst on reaching celebration step
+      if (step === 5) {
+        triggerCelebration();
+      }
+    }
+
+    // --- Toggle Promise Cards ---
+    function togglePromise(el) {
+      const p = el.querySelector('p');
+      const hint = el.querySelector('.toggle-hint');
+      if (p.classList.contains('hidden')) {
+        p.classList.remove('hidden');
+        hint.textContent = '−';
+        hint.classList.add('text-rose-600');
+        el.classList.add('bg-white', 'border-rose-300');
+      } else {
+        p.classList.add('hidden');
+        hint.textContent = '+';
+        hint.classList.remove('text-rose-600');
+        el.classList.remove('bg-white', 'border-rose-300');
+      }
+    }
+
+    // --- Evasive / Playful Button Logic ---
+    let dodgeCount = 0;
+    const dodgePhrases = [
+      "Are you really sure? 🥺",
+      "Think again please... 💔",
+      "Naaraazgi nahi chalegi! 😜",
+      "Look at that green button, it's so cute! 💖",
+      "No option to stay angry anymore! 🌸",
+      "Bas bhi karo na Deepika! 🥰"
+    ];
+
+    function dodgeButton() {
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const feedback = document.getElementById('dodgeFeedback');
+      dodgeCount++;
+
+      // Playful bounce & repositioning within container bounds
+      const randomX = (Math.random() - 0.5) * 180;
+      const randomY = (Math.random() - 0.5) * 60;
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(${Math.max(0.65, 1 - dodgeCount * 0.08)})`;
+
+      // Slightly enlarge the YES button to invite forgiveness
+      const currentScale = 1 + (dodgeCount * 0.08);
+      yesBtn.style.transform = `scale(${Math.min(currentScale, 1.35)})`;
+
+      // Update feedback prompt
+      feedback.style.opacity = '1';
+      feedback.textContent = dodgePhrases[dodgeCount % dodgePhrases.length];
+    }
+
+    // --- Forgive Action ---
+    function forgiveAction() {
+      goToStep(5);
+    }
+
+    // --- Confetti Celebrations ---
+    function triggerCelebration() {
+      // Fire confetti from both sides
+      const count = 200;
+      const defaults = {
+        origin: { y: 0.7 }
+      };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+        colors: ['#ff4d6d', '#ff758f', '#ffccd5']
+      });
+      fire(0.2, {
+        spread: 60,
+        colors: ['#ffd166', '#06d6a0', '#118ab2']
+      });
+      fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        colors: ['#e63946', '#f1faee', '#a8dadc']
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+      });
+    }
+
+    function triggerSuperConfetti() {
+      triggerCelebration();
+      // Extra floating heart burst
+      for (let i = 0; i < 15; i++) {
+        setTimeout(createFloatingHeart, i * 80);
+      }
+    }
+  </script>
+</body>
+</html>
